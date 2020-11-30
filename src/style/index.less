@@ -1,0 +1,187 @@
+@css-prefix: 'teco-pay';
+@general-scroll-cls: ~'@{css-prefix}-page';
+@basic-layout-wrapper-cls: ~'@{general-scroll-cls}__wrapper';
+@basic-layout-prefix-cls: ~'@{general-scroll-cls}-container';
+@basic-layout-container-wrapper-cls: ~'@{basic-layout-prefix-cls}__wrapper';
+@basic-layout-container-main-cls: ~'@{basic-layout-prefix-cls}__main';
+
+// color
+@primary-color: #2577FC;
+@info-color: #BBDEFB;
+@success-color: #19be6b;
+@processing-color: @primary-color;
+@warning-color: #ff9900;
+@error-color: #ff3300;
+@normal-color: #e6ebf1;
+@link-color: #007FFF;
+@text-color: #515a6e;
+// Border color
+@border-color-base: #dcdee2; // outside
+@border-color-split: #e9eaec; // inside
+@border-width-base: 1px; // width of the border for a component
+@border-style-base: solid; // style of a components border
+// Shadow
+@shadow-color: rgba(0, 0, 0, .2);
+@shadow-base: @shadow-down;
+// @shadow-card            : 0px 1px 2px 0px rgba(0,0,0,0.2);
+@shadow-card: 0 2px 8px 0 rgba(7, 17, 27, .06);
+@shadow-up: 0 -1px 6px @shadow-color;
+@shadow-down: 0 1px 6px @shadow-color;
+@shadow-left: -1px 0 6px @shadow-color;
+@shadow-right: 1px 0 6px @shadow-color;
+
+// layout control
+@body-min-width: 1000px;
+@body-max-width: 1440px;
+@body-space-padding: 52px;
+// basic layout
+@layout-header-background: #f1f1f1;
+@layout-header-height: 11.5rem;
+@layout-header-padding: 0;
+@layout-footer-height: 3rem;
+@layout-footer-padding: 0;
+@layout-footer-background: rgba(124, 124, 124, .5);
+@layout-body-min-height: ~"calc(100vh - @{layout-header-height} - @{layout-footer-height})";
+@layout-body-padding: 0;
+@layout-body-background: transparent;
+
+.screen-wrapper () {
+  padding-left: @body-space-padding;
+  padding-right: @body-space-padding;
+  min-width: @body-min-width;
+  margin: 0 auto;
+}
+
+.screen-main () {
+  max-width: @body-max-width;
+  margin: 0 auto;
+}
+
+.clear {
+  zoom: 1;
+}
+
+.clear:after {
+  display: block;
+  content: '';
+  clear: both;
+  visibility: hidden;
+  height: 0;
+}
+
+.size {
+  width: 100%;
+  height: 100%;
+}
+
+.scroll () {
+  /* 滚动槽 */
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.06);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.08);
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.08);
+  }
+  /* 滚动条滑块 */
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.10);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.13);
+  }
+}
+
+html {
+  font-size: 62.5%;
+  font-weight: 400;
+  font-family: 'web-font', 'PingFang SC', Helvetica, Tahoma, Arial, 'Hiragino Sans GB', 'Source Han Sans CN', 'Source Han Sans', 'Microsoft YaHei', '微软雅黑', SimSun, '宋体', Heiti, '黑体', source-han-sans-simplified-c, sans-serif;
+}
+
+body, html {
+  .size;
+  overflow: hidden;
+}
+
+.@{basic-layout-container-wrapper-cls} {
+  .screen-wrapper();
+}
+
+.@{basic-layout-container-main-cls} {
+  .screen-main();
+}
+
+#app {
+  .size;
+  overflow: auto;
+}
+
+.@{general-scroll-cls} {
+  .scroll();
+
+  .@{basic-layout-wrapper-cls} {
+    position: relative;
+    padding: 0;
+    margin: 0;
+
+    .pay-header__wrapper {
+      position: relative;
+      height: @layout-header-height;
+
+      .pay-header__main {
+        background: @layout-header-background;
+        font-size: 1.8rem;
+        padding: 20px 4px;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .header__logo-title {
+
+        }
+
+        .header__helper {
+        }
+      }
+    }
+
+    .pay-main__wrapper {
+      position: relative;
+      min-height: @layout-body-min-height;
+      background: @layout-body-background;
+    }
+
+    .pay-footer__wrapper {
+      position: relative;
+      height: @layout-footer-height;
+      background: @layout-footer-background;
+    }
+  }
+}
+
+.mt-8 {
+  margin-top: 8px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-12 {
+  margin-top: 12px;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
