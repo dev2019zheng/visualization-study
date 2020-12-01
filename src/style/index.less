@@ -1,4 +1,4 @@
-@css-prefix: 'teco-pay';
+@css-prefix: 'vis-main';
 @general-scroll-cls: ~'@{css-prefix}-page';
 @basic-layout-wrapper-cls: ~'@{general-scroll-cls}__wrapper';
 @basic-layout-prefix-cls: ~'@{general-scroll-cls}-container';
@@ -6,14 +6,14 @@
 @basic-layout-container-main-cls: ~'@{basic-layout-prefix-cls}__main';
 
 // color
-@primary-color: #2577FC;
-@info-color: #BBDEFB;
+@primary-color: #2577fc;
+@info-color: #bbdefb;
 @success-color: #19be6b;
 @processing-color: @primary-color;
 @warning-color: #ff9900;
 @error-color: #ff3300;
 @normal-color: #e6ebf1;
-@link-color: #007FFF;
+@link-color: #007fff;
 @text-color: #515a6e;
 // Border color
 @border-color-base: #dcdee2; // outside
@@ -21,10 +21,10 @@
 @border-width-base: 1px; // width of the border for a component
 @border-style-base: solid; // style of a components border
 // Shadow
-@shadow-color: rgba(0, 0, 0, .2);
+@shadow-color: rgba(0, 0, 0, 0.2);
 @shadow-base: @shadow-down;
 // @shadow-card            : 0px 1px 2px 0px rgba(0,0,0,0.2);
-@shadow-card: 0 2px 8px 0 rgba(7, 17, 27, .06);
+@shadow-card: 0 2px 8px 0 rgba(7, 17, 27, 0.06);
 @shadow-up: 0 -1px 6px @shadow-color;
 @shadow-down: 0 1px 6px @shadow-color;
 @shadow-left: -1px 0 6px @shadow-color;
@@ -35,13 +35,13 @@
 @body-max-width: 1440px;
 @body-space-padding: 52px;
 // basic layout
-@layout-header-background: #f1f1f1;
+@layout-header-background: rgba(255, 255, 255, 0.2);
 @layout-header-height: 11.5rem;
 @layout-header-padding: 0;
 @layout-footer-height: 3rem;
 @layout-footer-padding: 0;
-@layout-footer-background: rgba(124, 124, 124, .5);
-@layout-body-min-height: ~"calc(100vh - @{layout-header-height} - @{layout-footer-height})";
+@layout-footer-background: rgba(124, 124, 124, 0.3);
+@layout-body-min-height: ~'calc(100vh - @{layout-header-height} - @{layout-footer-height})';
 @layout-body-padding: 0;
 @layout-body-background: transparent;
 
@@ -75,21 +75,24 @@
 }
 
 .scroll () {
+
   /* 滚动槽 */
   &::-webkit-scrollbar {
     width: 5px;
     height: 5px;
   }
+
   &::-webkit-scrollbar-track {
     border-radius: 2px;
     background: rgba(0, 0, 0, 0.06);
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.08);
     -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.08);
   }
+
   /* 滚动条滑块 */
   &::-webkit-scrollbar-thumb {
     border-radius: 2px;
-    background: rgba(0, 0, 0, 0.10);
+    background: rgba(0, 0, 0, 0.1);
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.13);
   }
@@ -98,10 +101,14 @@
 html {
   font-size: 62.5%;
   font-weight: 400;
-  font-family: 'web-font', 'PingFang SC', Helvetica, Tahoma, Arial, 'Hiragino Sans GB', 'Source Han Sans CN', 'Source Han Sans', 'Microsoft YaHei', '微软雅黑', SimSun, '宋体', Heiti, '黑体', source-han-sans-simplified-c, sans-serif;
+  font-family: 'web-font', 'PingFang SC', Helvetica, Tahoma, Arial,
+    'Hiragino Sans GB', 'Source Han Sans CN', 'Source Han Sans',
+    'Microsoft YaHei', '微软雅黑', SimSun, '宋体', Heiti, '黑体',
+    source-han-sans-simplified-c, sans-serif;
 }
 
-body, html {
+body,
+html {
   .size;
   overflow: hidden;
 }
@@ -117,6 +124,7 @@ body, html {
 #app {
   .size;
   overflow: auto;
+  background: url('../assets/img/back.jpg');
 }
 
 .@{general-scroll-cls} {
@@ -127,34 +135,102 @@ body, html {
     padding: 0;
     margin: 0;
 
-    .pay-header__wrapper {
+    .main-header__wrapper {
       position: relative;
       height: @layout-header-height;
 
-      .pay-header__main {
+      .main-header__main {
         background: @layout-header-background;
         font-size: 1.8rem;
         padding: 20px 4px;
         height: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        .header__logo-title {
 
-        }
-
-        .header__helper {
+        .main-header__title {
+          color: rgba(255, 50, 0, 085);
+          font-weight: 700;
+          font-size: 50px;
+          text-align: center;
         }
       }
     }
 
-    .pay-main__wrapper {
+    .main-main__wrapper {
       position: relative;
       min-height: @layout-body-min-height;
-      background: @layout-body-background;
+
+      padding-top: 4rem;
+
+      .vis-main-page-container__main {
+        background: @layout-body-background;
+
+        >h2 {
+          font-size: 3rem;
+          color: #666666;
+          padding-left: 3rem;
+        }
+
+        ul.directory {
+          li.chapter {
+            position: relative;
+            padding-left: 2rem;
+            margin-top: 24px;
+
+            >a {
+              line-height: 1.499;
+              position: relative;
+              display: inline-block;
+              font-weight: 400;
+              white-space: nowrap;
+              text-align: center;
+              cursor: pointer;
+              transition: all .3s cubic-bezier(.645, .045, .355, 1);
+              padding: 0 15px;
+              font-size: 2.4rem;
+              color: rgba(255, 255, 255, 0.65);
+
+              text-decoration: underline;
+
+              &:hover {
+                color: rgba(255, 50, 0, 085);
+                ;
+              }
+            }
+          }
+
+          li.chapter::before {
+            content: " ";
+            position: absolute;
+            top: 0.4rem;
+            left: 0;
+            display: block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0.7rem 1.4rem;
+            border-color: transparent transparent #007fff #007fff;
+          }
+
+          li.chapter::after {
+            content: " ";
+            position: absolute;
+            top: 1.8rem;
+            left: 0;
+            display: block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0.7rem 1.4rem;
+            border-color: #E0470E transparent transparent #E0470E;
+          }
+        }
+      }
+
     }
 
-    .pay-footer__wrapper {
+    .main-footer__wrapper {
       position: relative;
       height: @layout-footer-height;
       background: @layout-footer-background;
