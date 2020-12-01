@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>使用svg绘制层次关系图</title>
+  <style>
+    #test-02 {
+      position: relative;
+    }
+
+    #test-02 h3 {
+      position: absolute;
+      color: white;
+      font-size: 30px;
+      top: 80px;
+      left: 400px;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="test-01">
+    <h2>test 01</h2>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <circle cx="100" cy="50" r="40" stroke="black" stroke-width="2" fill="orange" />
+    </svg>
+  </div>
+  <div id="test-02">
+    <h2>test 02</h2>
+    <h3>&nbsp;</h3>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="800" viewBox="0 0 1600 1600"></svg>
+  </div>
+</body>
+
+</html>

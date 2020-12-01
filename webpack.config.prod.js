@@ -7,7 +7,7 @@ const optimizeCss = require('optimize-css-assets-webpack-plugin');
 const prodConfig = {
   output: {
     path: path.resolve(__dirname, './dist/static'),
-    filename: 'js/[name]-[hash:6].js',
+    filename: 'js/[name]-[hash:6].js'
   },
   mode: 'production',
   module: {
@@ -19,40 +19,45 @@ const prodConfig = {
           {
             loader: 'style-loader',
             options: {
-              injectType: 'singletonStyleTag', // 将所有的style标签合并成⼀个
-            },
+              injectType: 'singletonStyleTag' // 将所有的style标签合并成⼀个
+            }
           },
-          'css-loader',
-        ],
+          'css-loader'
+        ]
       },
       {
         test: /\.less$/,
         include: path.resolve(__dirname, './src'),
         use: [
-          miniCssExtractPlugin.loader,
+          {
+            loader: miniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../'
+            }
+          },
           'css-loader',
           'postcss-loader',
-          'less-loader',
-        ],
-      },
-    ],
+          'less-loader'
+        ]
+      }
+    ]
   },
   optimization: {
-    usedExports: true,
+    usedExports: true
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
+      '@': path.resolve(__dirname, './src')
+    }
   },
   plugins: [
     new miniCssExtractPlugin({
-      filename: 'css/[name]-[contenthash:6].css', // 使用hash版本
+      filename: 'css/[name]-[contenthash:6].css' // 使用hash版本
     }),
     new optimizeCss({
-      cssProcessor: require('cssnano'),
-    }),
-  ],
+      cssProcessor: require('cssnano')
+    })
+  ]
 };
 
 module.exports = merge(baseConfig, prodConfig);
