@@ -1,3 +1,5 @@
+import { createPolygonVertexArray } from '../../js/lib/polygon-tools';
+
 const canvas = document.querySelector('#my-canvas');
 
 const gl = canvas.getContext('webgl');
@@ -39,7 +41,7 @@ gl.linkProgram(program);
 
 gl.useProgram(program);
 
-const points = new Float32Array([-1, -1, 0, 1, 1, -1]);
+const points = createPolygonVertexArray(0, 0, 1, 4);
 
 const bufferId = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
@@ -53,4 +55,4 @@ gl.enableVertexAttribArray(vPosition);
 // 激活这个变量;
 
 gl.clear(gl.COLOR_BUFFER_BIT);
-gl.drawArrays(gl.TRIANGLES, 0, points.length / 2);
+gl.drawArrays(gl.TRIANGLE_FAN, 0, points.length / 2);

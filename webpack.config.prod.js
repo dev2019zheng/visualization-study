@@ -45,11 +45,6 @@ const prodConfig = {
   optimization: {
     usedExports: true
   },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src')
-    }
-  },
   plugins: [
     new miniCssExtractPlugin({
       filename: 'css/[name]-[contenthash:6].css' // 使用hash版本
