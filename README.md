@@ -1,8 +1,6 @@
-# pay-page
+# visualization study note
 
-## jquery
-
-jquery
+## multiple page pack
 
 ## base
 
@@ -13,7 +11,13 @@ yarn
 ## debug
 
 ```bash
-yarn server
+yarn serve
+```
+
+## dev
+
+```bash
+yarn dev
 ```
 
 ## bundle
