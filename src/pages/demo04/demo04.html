@@ -4,16 +4,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>webgl绘制三角形</title>
+  <title>webgl绘制正n边形</title>
   <style>
-    .canvas {
+    .base-box {
+      text-align: center;
+    }
+
+    .canvas-box {
       background-color: rgba(120, 120, 120, 0.3);
+      padding: 24px;
+    }
+
+    .operator-box {
+      text-align: center;
+      padding: 40px;
+    }
+
+    button {
+      font-size: 24px;
+      min-width: 120px;
+      display: inline-block;
+      margin-bottom: 0;
+      font-weight: 400;
+      text-align: center;
+      vertical-align: middle;
+      -ms-touch-action: manipulation;
+      touch-action: manipulation;
+      cursor: pointer;
+      background-image: none;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      transition: color .2s linear, background-color .2s linear, border .2s linear, box-shadow .2s linear;
+      color: #fff;
+      background-color: #2d8cf0;
+      border-color: #2d8cf0;
+    }
+
+    .count {
+      color: #555;
+      font-size: 20px;
     }
   </style>
 </head>
 
 <body>
-  <canvas id="my-canvas" class="canvas" width="512" height="512"></canvas>
+  <div class="base-box">
+    <div class="operator-box">
+      <button class="decrease">--</button>
+      <span class="count"></span>
+      <button class="increase">++</button>
+    </div>
+    <div class='canvas-box'>
+      <canvas id="my-canvas" class="canvas" width="512" height="512"></canvas>
+    </div>
+  </div>
 </body>
 
 </html>
