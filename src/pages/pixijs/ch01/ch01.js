@@ -1,0 +1,1 @@
+$('body').append($(`<h1>Pixi.js</h1>`))

@@ -1,4 +1,4 @@
-import { createPolygonVertexArray } from '../../js/lib/polygon-tools';
+import { createPolygonVertexArray } from '@lib/polygon-tools';
 
 const canvas = document.querySelector('#my-canvas');
 

@@ -3,6 +3,7 @@ const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const glob = require('glob');
+const { pack } = require('d3');
 const isProd = process.env.NODE_ENV === 'production';
 
 function mulHtmlSetup() {
@@ -11,10 +12,26 @@ function mulHtmlSetup() {
   const styleJsFiles = glob
     .sync(path.join(__dirname, './src/js/**/*.style.js'))
     .map((p) => path.join(p));
-  const entryFiles = glob.sync(path.join(__dirname, './src/pages/*/*.js'));
+  // 页面打包
+  const entryFiles = glob.sync(path.join(__dirname, './src/pages/**/*.js'));
   entryFiles.forEach((entryFile, _) => {
     const matchs = entryFile.match(/src\/pages\/(.*)\/(.*)\.js$/);
-    const pageName = matchs[1];
+    // 'D:/dev2019/visualization-study/src/pages/pixijs/ch01/ch01.js'
+    // 'pixijs/ch01'
+    const packName = matchs[1];
+    // 'ch01'
+    const pageName = matchs[2];
+    // 打包目录，默认根目录
+    let buildPackName = '';
+
+    if (packName.indexOf('/') >= 0) {
+      const packs = packName.split('/');
+      // 存在多层级，去掉最后一层
+      packs.pop();
+      // 'pixijs/ch01' -> 'pixijs/'
+      buildPackName = packs.join('/') + '/';
+    }
+
     entry[pageName] = entryFile;
     const stylePath = path.resolve(__dirname, `src/js/${pageName}.style.js`);
     const exists = styleJsFiles.includes(stylePath);
@@ -25,13 +42,14 @@ function mulHtmlSetup() {
         `src/js/${pageName}.style.js`
       );
     }
+
     htmlWebpackPlugins.push(
       new htmlWebpackPlugin({
         template: path.join(
           __dirname,
-          `src/pages/${pageName}/${pageName}.html`
+          `src/pages/${packName}/${pageName}.html`
         ),
-        filename: `${isProd ? '..' : '.'}/${pageName}.html`,
+        filename: `${isProd ? '..' : '.'}/${buildPackName}${pageName}.html`,
         chunks: ['jquery-lib', 'common-style', pageName + '-style', pageName],
         inject: 'true',
         hash: true
@@ -53,6 +71,13 @@ module.exports = {
     'common-style': path.resolve(__dirname, './src/js/common.style.js'),
     'jquery-lib': 'jquery',
     ...entry
+  },
+  resolve: {
+    //配置别名，在项目中可缩减引用路径
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+      '@lib': path.resolve(__dirname, 'src/js/lib')
+    }
   },
   module: {
     rules: [
