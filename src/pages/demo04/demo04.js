@@ -60,7 +60,7 @@ gl.enableVertexAttribArray(vPosition);
 drawPolygon(count);
 
 function drawPolygon(n) {
-  $('.count').text(`[ ${n} ]`);
+  $('.count').text(`[ count: ${n} ]`);
   points = createPolygonVertexArray(0, 0, 1, n);
   gl.bufferData(gl.ARRAY_BUFFER, points, gl.STATIC_DRAW);
   gl.clear(gl.COLOR_BUFFER_BIT);
