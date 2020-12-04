@@ -72,6 +72,13 @@ module.exports = {
     'jquery-lib': 'jquery',
     ...entry
   },
+  resolve: {
+    //配置别名，在项目中可缩减引用路径
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+      '@lib': path.resolve(__dirname, 'src/js/lib')
+    }
+  },
   module: {
     rules: [
       {
