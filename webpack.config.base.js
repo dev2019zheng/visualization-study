@@ -3,19 +3,21 @@ const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const glob = require('glob');
-const fse = require('fs-extra');
 const isProd = process.env.NODE_ENV === 'production';
 
 function mulHtmlSetup() {
   const entry = {};
   const htmlWebpackPlugins = [];
+  const styleJsFiles = glob
+    .sync(path.join(__dirname, './src/js/**/*.style.js'))
+    .map((p) => path.join(p));
   const entryFiles = glob.sync(path.join(__dirname, './src/pages/*/*.js'));
-  entryFiles.map(async (entryFile, _) => {
+  entryFiles.forEach((entryFile, _) => {
     const matchs = entryFile.match(/src\/pages\/(.*)\/(.*)\.js$/);
     const pageName = matchs[1];
     entry[pageName] = entryFile;
     const stylePath = path.resolve(__dirname, `src/js/${pageName}.style.js`);
-    const exists = await fse.pathExists(stylePath);
+    const exists = styleJsFiles.includes(stylePath);
     if (exists) {
       console.log(`  dev2019zheng ::: ${pageName} style path exist`);
       entry[pageName + '-style'] = path.resolve(
