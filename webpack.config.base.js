@@ -3,7 +3,6 @@ const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const glob = require('glob');
-const { pack } = require('d3');
 const isProd = process.env.NODE_ENV === 'production';
 
 function mulHtmlSetup() {
@@ -52,14 +51,14 @@ function mulHtmlSetup() {
         filename: `${isProd ? '..' : '.'}/${buildPackName}${pageName}.html`,
         chunks: ['jquery-lib', 'common-style', pageName + '-style', pageName],
         inject: 'true',
-        hash: true
+        hash: true,
       })
     );
   });
 
   return {
     entry,
-    htmlWebpackPlugins
+    htmlWebpackPlugins,
   };
 }
 
@@ -70,14 +69,15 @@ module.exports = {
     // 通用css
     'common-style': path.resolve(__dirname, './src/js/common.style.js'),
     'jquery-lib': 'jquery',
-    ...entry
+    ...entry,
   },
   resolve: {
     //配置别名，在项目中可缩减引用路径
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      '@lib': path.resolve(__dirname, 'src/js/lib')
-    }
+      '@lib': path.resolve(__dirname, 'src/js/lib'),
+      roughjs: 'roughjs/bundled/rough.esm.js',
+    },
   },
   module: {
     rules: [
@@ -90,17 +90,17 @@ module.exports = {
             options: {
               name: 'fonts/[name].[hash:6].[ext]',
               publicPath: '../',
-              limit: 2000
-            }
-          }
-        ]
+              limit: 2000,
+            },
+          },
+        ],
       },
       {
         test: /\.js$/,
         include: path.resolve(__dirname, './src'),
         use: {
-          loader: 'babel-loader'
-        }
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.(png|jpe?g|gif)$/,
@@ -110,18 +110,18 @@ module.exports = {
           options: {
             name: '[name]_[hash:6].[ext]',
             outputPath: 'images/',
-            limit: 2048
-          }
-        }
+            limit: 2048,
+          },
+        },
       },
       {
         test: require.resolve('jquery'),
         loader: 'expose-loader',
         options: {
-          exposes: ['$', 'jQuery']
-        }
-      }
-    ]
+          exposes: ['$', 'jQuery'],
+        },
+      },
+    ],
   },
-  plugins: [new CleanWebpackPlugin(), ...htmlWebpackPlugins]
+  plugins: [new CleanWebpackPlugin(), ...htmlWebpackPlugins],
 };
