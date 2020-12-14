@@ -31,7 +31,7 @@
 @shadow-right: 1px 0 6px @shadow-color;
 
 // layout control
-@body-min-width: 1000px;
+@body-min-width: 200px;
 @body-max-width: 1440px;
 @body-space-padding: 52px;
 // basic layout
@@ -75,7 +75,6 @@
 }
 
 .scroll () {
-
   /* 滚动槽 */
   &::-webkit-scrollbar {
     width: 5px;
@@ -165,7 +164,7 @@ html {
       .vis-main-page-container__main {
         background: @layout-body-background;
 
-        >h2 {
+        > h2 {
           font-size: 3rem;
           color: #666666;
           padding-left: 3rem;
@@ -177,7 +176,7 @@ html {
             padding-left: 2rem;
             margin-top: 24px;
 
-            >a {
+            > a {
               line-height: 1.499;
               position: relative;
               display: inline-block;
@@ -185,7 +184,7 @@ html {
               white-space: nowrap;
               text-align: center;
               cursor: pointer;
-              transition: all .3s cubic-bezier(.645, .045, .355, 1);
+              transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
               padding: 0 15px;
               font-size: 2.4rem;
               color: rgba(255, 255, 255, 0.65);
@@ -194,13 +193,12 @@ html {
 
               &:hover {
                 color: rgba(255, 50, 0, 085);
-                ;
               }
             }
           }
 
           li.chapter::before {
-            content: " ";
+            content: ' ';
             position: absolute;
             top: 0.4rem;
             left: 0;
@@ -213,7 +211,7 @@ html {
           }
 
           li.chapter::after {
-            content: " ";
+            content: ' ';
             position: absolute;
             top: 1.8rem;
             left: 0;
@@ -222,11 +220,10 @@ html {
             height: 0;
             border-style: solid;
             border-width: 0.7rem 1.4rem;
-            border-color: #E0470E transparent transparent #E0470E;
+            border-color: #e0470e transparent transparent #e0470e;
           }
         }
       }
-
     }
 
     .main-footer__wrapper {

@@ -40,7 +40,7 @@ gl.attachShader(program, fragmentShader);
 gl.linkProgram(program);
 
 gl.useProgram(program);
-let count = 3;
+let count = 4;
 let points = createPolygonVertexArray(0, 0, 1, count);
 const bufferId = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
@@ -69,7 +69,13 @@ function drawPolygon(n) {
 
 $('.decrease').on('click', function () {
   drawPolygon(--count);
+  if (count === 3) {
+    $('.decrease').attr('disabled', true);
+  }
 });
 $('.increase').on('click', function () {
+  if (count === 3) {
+    $('.decrease').attr('disabled', false);
+  }
   drawPolygon(++count);
 });
