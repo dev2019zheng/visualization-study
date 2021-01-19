@@ -4,16 +4,17 @@ import { Vector2D } from '../../../js/lib/Vector2D.js';
   const defaltP = new Vector2D(0, 100);
   const defaltQ = new Vector2D(-120, 0);
   const defaltR = new Vector2D(120, 0);
-
+  const $dist1 = $('#dist1');
+  const $dist2 = $('#dist2');
   const canvas = document.querySelector('canvas');
 
   if (!canvas) {
     return;
   }
 
-  let P = defaltP,
-    Q = defaltQ,
-    R = defaltR;
+  let OP = defaltP,
+    OQ = defaltQ,
+    OR = defaltR;
 
   const bottom = new Vector2D(0, -canvas.height * 0.5),
     top = new Vector2D(0, canvas.height * 0.5),
@@ -30,13 +31,13 @@ import { Vector2D } from '../../../js/lib/Vector2D.js';
     const checked = $('input:radio:checked').val();
     switch (checked) {
       case 'P':
-        P = temp;
+        OP = temp;
         break;
       case 'Q':
-        Q = temp;
+        OQ = temp;
         break;
       case 'R':
-        R = temp;
+        OR = temp;
         break;
       default:
         return;
@@ -96,7 +97,10 @@ import { Vector2D } from '../../../js/lib/Vector2D.js';
     ctx.save();
     ctx.strokeStyle = style.strokeStyle;
     if (style.dash) {
-      ctx.setLineDash([4, 2]);
+      ctx.setLineDash([4, 3]);
+    }
+    if (style.width) {
+      ctx.lineWidth = style.width;
     }
     ctx.beginPath();
     ctx.moveTo(...p1);
@@ -108,12 +112,39 @@ import { Vector2D } from '../../../js/lib/Vector2D.js';
 
   function draw() {
     initailCanvas();
-    drawPointWithText(P, 'P');
-    drawPointWithText(Q, 'Q');
-    drawPointWithText(R, 'R');
+    drawPointWithText(OP, 'P');
+    drawPointWithText(OQ, 'Q');
+    drawPointWithText(OR, 'R');
+    drawLine(OQ, OR);
+    drawSegment(OQ, OR, { strokeStyle: 'blue', dash: true });
 
-    drawLine(Q, R);
-    drawSegment(Q, R, { strokeStyle: 'blue', dash: true });
+    let QR = OR.copy().sub(OQ),
+      QP = OP.copy().sub(OQ),
+      normalizeQR = QR.copy().normalize(),
+      cosPQR = QP.dot(QR) / (QP.len * QR.len),
+      QN = normalizeQR.scale(QP.len * cosPQR),
+      ON = OQ.copy().add(QN);
+
+    drawPointWithText(ON, 'N');
+
+    // P到直线QR的距离
+    $dist2.text(ON.copy().sub(OP).len);
+    drawSegment(OP, ON, { strokeStyle: 'green', dash: false, width: 2 });
+
+    // P到线段QR的距离
+    let temp;
+    if (cosPQR < 0) {
+      // Q左侧
+      temp = OQ;
+    } else if (QN.len <= QR.len) {
+      // QR内部
+      temp = ON;
+    } else {
+      // R右侧
+      temp = OR;
+    }
+    $dist1.text(temp.copy().sub(OP).len);
+    drawSegment(OP, temp, { strokeStyle: 'red', dash: true });
   }
   draw();
 })();
