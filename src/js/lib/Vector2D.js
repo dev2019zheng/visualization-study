@@ -19,7 +19,7 @@ export class Vector2D extends Array {
     return this[1];
   }
 
-  get length() {
+  get len() {
     return Math.hypot(this.x, this.y);
   }
 
@@ -58,7 +58,7 @@ export class Vector2D extends Array {
   }
 
   normalize() {
-    return this.scale(1 / this.length);
+    return this.scale(1 / this.len);
   }
 
   rotate(rad) {
