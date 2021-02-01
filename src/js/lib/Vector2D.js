@@ -37,6 +37,12 @@ export class Vector2D extends Array {
     return this;
   }
 
+  addv(x, y) {
+    this.x += x;
+    this.y += y;
+    return this;
+  }
+
   sub(v) {
     this.x -= v.x;
     this.y -= v.y;
